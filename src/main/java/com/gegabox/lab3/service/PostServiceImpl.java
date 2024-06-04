@@ -11,28 +11,33 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
-    // @Autowired
     PostRepository postRepository;
     UserService userService;
 
-    @Autowired
-    public PostServiceImpl(PostRepository postRepository, UserService userService){
-        this.postRepository = postRepository;this.userService=userService;
+    public PostServiceImpl(PostRepository postRepository, UserService userService) {
+        this.postRepository = postRepository;
+        this.userService = userService;
     }
-@Override
-   public List<Post> findAll(){
+
+    @Override
+    public List<Post> findAll() {
         return postRepository.findAll();
     }
 
     @Override
-   public Post findById(long id){
+    public List<Post> findPostsByTitle(String title) {
+        return postRepository.findPostsByTitle(title);
+    }
+
+    @Override
+    public Post findById(long id) {
         return postRepository.findById(id).get();
     }
 
     @Override
-   public void add(Post post){
+    public void add(Post post) {
         User user = userService.findById(1L);
         user.getPosts().add(post);
         postRepository.save(post);

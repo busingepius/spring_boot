@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -18,7 +19,15 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> findPostAll() {
+    public List findPostAll(
+            @RequestParam(required = false, name = "title") String title,
+            @RequestParam(required = false, name = "likes") String likes
+    ) {
+        System.out.println(title +"ii iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        System.out.println(likes+"  qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        if (!title.isEmpty()) {
+            return postService.findPostsByTitle(title);
+        }
         return postService.findAll();
     }
 
@@ -34,7 +43,7 @@ public class PostController {
 
     @PutMapping("/{id}")
     public void updatePost(@PathVariable long id, @RequestBody Post post) {
-        postService.update(id,post);
+        postService.update(id, post);
     }
 
     @DeleteMapping("/{id}")

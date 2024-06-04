@@ -1,6 +1,4 @@
-package com.gegabox.lab3.annotation;
-
-import org.aspectj.lang.annotation.Aspect;
+package com.gegabox.lab3.aspect.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

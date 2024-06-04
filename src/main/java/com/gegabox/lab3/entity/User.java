@@ -17,7 +17,7 @@ public class User {
     String name;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     List<Post> posts;
 }

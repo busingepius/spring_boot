@@ -1,8 +1,11 @@
 package com.gegabox.lab3.controller;
 
+import com.gegabox.lab3.aspect.annotation.ExecutionTime;
+import com.gegabox.lab3.aspect.annotation.LogMe;
 import com.gegabox.lab3.entity.Post;
 import com.gegabox.lab3.entity.User;
 import com.gegabox.lab3.service.UserService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +21,24 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ExecutionTime
+    @LogMe
     @GetMapping
     public List<User> getUsers() {
         return userService.findAll();
     }
 
+    @GetMapping("/size/{size}")
+    public List<User> getUsers(@PathVariable("size") int size) {
+        return userService.findByPostsGreaterThanSize(size);
+    }
+
     @PostMapping
-    public void createUser(@RequestBody User user) {
+    public void addUser(@RequestBody User user) {
         userService.save(user);
     }
 
+    @LogMe
     @GetMapping("/{id}")
     public User getUser(@PathVariable long id) {
         return userService.findById(id);

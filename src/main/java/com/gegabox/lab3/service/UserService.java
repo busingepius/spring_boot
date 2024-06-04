@@ -13,4 +13,6 @@ public interface UserService {
     User findById(long id);
     List<Post> findUserPostsById(long id);
     void save(User user);
+    List<User> findByPostsGreaterThanSize(int size);
+
 }

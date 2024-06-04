@@ -41,7 +41,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findByPostsGreaterThanSize(int size){
+        var users = userRepository.findAll().stream().filter((u)->u.getPosts().size() > size).toList();
+        return users;
     }
 }

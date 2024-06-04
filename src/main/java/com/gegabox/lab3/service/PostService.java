@@ -11,6 +11,8 @@ public interface PostService {
 
     public List<Post> findAll();
 
+    public  List<Post> findPostsByTitle(String title);
+
     public Post findById(long id);
 
     public void add(Post post);

@@ -8,15 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post,Long> {
-//    List<Post> findPostAll();
-//
-//    Post findPostById(long id);
-//
-//    void add(long id,Post post);
-//
-//    void updatePost(long id, Post post);
-//
-//    void deletePost(long id);
+public interface PostRepository extends JpaRepository<Post, Long> {
 
+    @Query("select p from Post p where  size(p.comment) > ?1")
+    List<Post> findPostsByCommentGreaterThan(int num);
+
+    @Query(value = "select p from Post p where p.title = ?1 ")
+    List<Post> findPostsByTitle(String title);
 }

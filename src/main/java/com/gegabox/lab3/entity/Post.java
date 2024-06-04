@@ -1,7 +1,7 @@
 
 package com.gegabox.lab3.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 public class Post{
 
-    @JsonBackReference
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
@@ -26,7 +25,8 @@ public class Post{
     String content;
     String author;
 
-    @OneToMany
-    @JoinColumn(name="post_id")
+    @JsonManagedReference
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name="post_id",insertable=false, updatable=false)
     List<Comment> comment;
 }
