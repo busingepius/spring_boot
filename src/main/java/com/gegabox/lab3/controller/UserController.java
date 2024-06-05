@@ -21,8 +21,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ExecutionTime
-    @LogMe
+//    @ExecutionTime
+//    @LogMe
     @GetMapping
     public List<User> getUsers() {
         return userService.findAll();
